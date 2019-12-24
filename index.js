@@ -13,6 +13,18 @@ client.once('ready', () => {
 })
 
 client.on('message', message => {
+
+    if(message.content.startsWith(`${prefix}hello`)) {
+        message.channel.send("Hello there, sir " + message.author.username + ".");
+    }
+
+    if(message.content.startsWith(`${prefix}bye`)) {
+        message.reply("I'm here all day, sir.");
+    }
+
+    if(message.content.startsWith(`${prefix}good night`)) {
+        message.reply("Pleasure to serve you, sir.");
+    }
     
     if(message.member.hasPermission(['KICK_MEMBERS', 'BAN_MEMBERS'])) {
 
