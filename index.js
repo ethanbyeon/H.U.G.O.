@@ -2,9 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 require('dotenv').config();
 
-console.log(process.env);
-
-var GphApiClient = require('giphy-js-sd-core');
+var GphApiClient = require('giphy-js-sdk-core');
 const prefix = "!";
 const token = process.env.API_KEY;
 const giphy = GphApiClient(process.env.GIPHY_TOKEN);
