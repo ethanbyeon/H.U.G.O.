@@ -9,23 +9,30 @@ const giphy = GphApiClient(process.env.GIPHY_TOKEN);
 
 
 client.once('ready', () => {
+
+    console.log("Connected as " + client.user.tag);
     console.log('Ready!');
+
+    client.guilds.forEach((guild) =>  {
+        console.log(guild.name);
+        guild.channels.forEach((channel) => {
+            console.log(` - ${channel.name} ${channel.type} ${channel.id}`)
+        });
+    });
+
+    let generalChannel = client.channels.get("658868395986649122");
+    generalChannel.send("Hello World!");
+
 });
 
 client.on('message', message => {
 
-    if(message.content.startsWith(`${prefix}hello`)) {
-        message.reply("Hello there, sir.");
-    }
+    // if(message.author == client.user) return;
+    // message.channel.send(message.author.toString() + ": " + message.content);
 
-    if(message.content.startsWith(`${prefix}bye`)) {
-        message.reply("I'm here all day, sir.");
-    }
+    if(message.content.startsWith(`${prefix}`)) processCommand(message);
 
-    if(message.content.startsWith(`${prefix}gn`)) {
-        message.reply("Pleasure to serve you, sir.");
-    }
-
+    
     if(message.content === `${prefix}rip`) {
         const attachment = new Attachment('https://media.giphy.com/media/2wYrkKvETbAwWAM4Gy/giphy.gif');
         message.channel.send(message.author, attachment);
@@ -68,5 +75,40 @@ client.on('message', message => {
         }
     }
 });
+
+if(message.content.startsWith(`${prefix}hello`)) {
+    message.reply("Hello there, sir.");
+}
+
+if(message.content.startsWith(`${prefix}bye`)) {
+    message.reply("I'm here all day, sir.");
+}
+
+if(message.content.startsWith(`${prefix}gn`)) {
+    message.reply("Pleasure to serve you, sir.");
+}
+
+
+function processCommand(message) {
+
+    let fullCommand = message.content.substr(1);
+    let splitCommand = fullCommand.split(" ");
+    let primaryCommand = splitCommand[0];
+    let args = splitCommand.slice(1);
+
+    if(primaryCommand == "help") helpCommand(args, message);
+    if(primaryCommand == "council") councilCommand(args, message)l
+
+}
+
+function helpCommand(args, message) {
+
+    if(args.length == 0) {
+        message.channel.send("I'm afraid that you have reached the limit to my capabilites. Try `help [topic]`");
+    } else {
+        message.channel.send("It looks like you need assistance with " + args);
+    }
+
+}
 
 client.login(token);
