@@ -27,14 +27,14 @@ client.once('ready', () => {
 
 client.on('message', message => {
 
-    if(message.author == client.user) return;
-    message.channel.send(message.author.toString() + ": " + message.content);
+    // if(message.author == client.user) return;
+    // message.channel.send(message.author.toString() + ": " + message.content);
 
     if(message.content.startsWith(`${prefix}`)) {
         processCommand(message);
     }
 
-    if(message.content.startsWith("Hugo") || message.content.startsWith("hugo")) {
+    if(message.content.includes("Hugo") || message.content.includes("hugo")) {
         hugoCommand(message);
     }
     
@@ -53,7 +53,7 @@ function processCommand(message) {
         councilCommand(args, message);
     }else if(primaryCommand == "rip") {
         const attachment = new Attachment('https://media.giphy.com/media/2wYrkKvETbAwWAM4Gy/giphy.gif');
-        message.channel.send(message.author, attachment);
+        message.channel.send(message.author + ": ", attachment);
     }else  {
         message.channel.send("That is an unknown command. Try `!help` or `multiply`");
     }
@@ -62,17 +62,16 @@ function processCommand(message) {
 
 function hugoCommand(message) {
 
-    let splitCommand = message.content.split(" ");
-    let args = splitCommand.slice(1);
+    let args = message.content.split(" ");
 
     if(args.includes("hello") || args.includes("hi")) {
-        message.reply("Hello there, sir.");
+        message.channel.send(message.author + " | Hello there, sir.");
     }else if(args.includes("bye")) {
-        message.reply("I'm here all day, sir.");
-    }else if(args.includes("gn") || args.includes("good night")){
-        message.reply("Pleasure to serve you, sir.");
+        message.channel.send(message.author + " | I'm here all day, sir.");
+    }else if(args.includes("gn")){
+        message.channel.send(message.author + " | Pleasure to serve you, sir.");
     }else {
-        message.reply("At your service, sir.");
+        message.channel.send(message.author + " | At your service, sir.");
     }
 
 }
