@@ -27,42 +27,92 @@ client.once('ready', () => {
 
 client.on('message', message => {
 
-    // if(message.author == client.user) return;
-    // message.channel.send(message.author.toString() + ": " + message.content);
+    if(message.author == client.user) return;
+    message.channel.send(message.author.toString() + ": " + message.content);
 
-    if(message.content.startsWith(`${prefix}`)) processCommand(message);
+    if(message.content.startsWith(`${prefix}`)) {
+        processCommand(message);
+    }
 
-    
-    if(message.content === `${prefix}rip`) {
-        const attachment = new Attachment('https://media.giphy.com/media/2wYrkKvETbAwWAM4Gy/giphy.gif');
-        message.channel.send(message.author, attachment);
+    if(message.content.startsWith("Hugo") || message.content.startsWith("hugo")) {
+        hugoCommand(message);
     }
     
+});
+
+function processCommand(message) {
+
+    let fullCommand = message.content.substr(1);
+    let splitCommand = fullCommand.split(" ");
+    let primaryCommand = splitCommand[0];
+    let args = splitCommand.slice(1);
+
+    if(primaryCommand == "help") {
+        helpCommand(args, message);
+    }else if(primaryCommand == "council") {
+        councilCommand(args, message);
+    }else if(primaryCommand == "rip") {
+        const attachment = new Attachment('https://media.giphy.com/media/2wYrkKvETbAwWAM4Gy/giphy.gif');
+        message.channel.send(message.author, attachment);
+    }else  {
+        message.channel.send("That is an unknown command. Try `!help` or `multiply`");
+    }
+
+}
+
+function hugoCommand(message) {
+
+    let splitCommand = message.content.split(" ");
+    let args = splitCommand.slice(1);
+
+    if(args.includes("hello") || args.includes("hi")) {
+        message.reply("Hello there, sir.");
+    }else if(args.includes("bye")) {
+        message.reply("I'm here all day, sir.");
+    }else if(args.includes("gn") || args.includes("good night")){
+        message.reply("Pleasure to serve you, sir.");
+    }else {
+        message.reply("At your service, sir.");
+    }
+
+}
+
+function helpCommand(args, message) {
+
+    if(args.length == 0) {
+        message.channel.send("I'm afraid that you have reached the limit to my capabilites. Try `!help [topic]`");
+    } else {
+        message.channel.send("It looks like you need assistance with " + args);
+    }
+
+}
+
+function councilCommand(args, message) {
+
     if(message.member.hasPermission(['KICK_MEMBERS', 'BAN_MEMBERS'])) {
 
-        if(message.content.startsWith(`${prefix}kick`)) {
+        if(args.includes("kick")) {
 
             let member = message.mentions.members.first();
+            
             member.kick().then((member) => {
+                giphy.search('gifs', {"q": "family guy"}).then((response) => {
+                    var totalResponses = response.data.length;
+                    var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+                    var responseFinal = response.data[responseIndex]
 
-                giphy.search('gifs', {"q": "family guy"})
-                    .then((response) => {
-
-                        var totalResponses = response.data.length;
-                        var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
-                        var responseFinal = response.data[responseIndex]
-
-                        message.channel.send(member.displayName + " has been removed. :wave: ", {
-                            files: [responseFinal.images.fixed_height.url]
-                        }).catch(() => {
-                            message.channel.send('Error');
-                        });
-
+                    message.channel.send(member.displayName + " has been removed. :wave: ", {
+                    files: [responseFinal.images.fixed_height.url]
+                    }).catch(() => {
+                        message.channel.send('Error');
                     });
+
+                });
+
             });
         }
 
-        if(message.content.startsWith(`${prefix}ban`)) {
+        if(message.content.includes("ban")) {
 
             let member = message.mentions.members.first();
             member.ban().then((member) => {
@@ -73,40 +123,7 @@ client.on('message', message => {
 
             });
         }
-    }
-});
-
-if(message.content.startsWith(`${prefix}hello`)) {
-    message.reply("Hello there, sir.");
-}
-
-if(message.content.startsWith(`${prefix}bye`)) {
-    message.reply("I'm here all day, sir.");
-}
-
-if(message.content.startsWith(`${prefix}gn`)) {
-    message.reply("Pleasure to serve you, sir.");
-}
-
-
-function processCommand(message) {
-
-    let fullCommand = message.content.substr(1);
-    let splitCommand = fullCommand.split(" ");
-    let primaryCommand = splitCommand[0];
-    let args = splitCommand.slice(1);
-
-    if(primaryCommand == "help") helpCommand(args, message);
-    if(primaryCommand == "council") councilCommand(args, message)l
-
-}
-
-function helpCommand(args, message) {
-
-    if(args.length == 0) {
-        message.channel.send("I'm afraid that you have reached the limit to my capabilites. Try `help [topic]`");
-    } else {
-        message.channel.send("It looks like you need assistance with " + args);
+        
     }
 
 }
