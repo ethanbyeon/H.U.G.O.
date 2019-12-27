@@ -1,4 +1,4 @@
-const { Client, Attachment } = require('discord.js');
+const Discord = require('discord.js');
 const botconfig = require("./botconfig.json");
 const colors = require("./colors.json");
 
@@ -11,7 +11,7 @@ const token = process.env.API_KEY;
 // const gChannel_token = process.env.GENERAL_CHANNEL;
 // const giphy = GphApiClient(process.env.GIPHY_TOKEN);
 
-client.once('ready', async () => {
+bot.once('ready', async () => {
 
     console.log("Hugo is online.");
 
@@ -32,7 +32,7 @@ bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 
 fs.readdir("./commands/", (err, files) => {
-    if(err) console.log(err);
+    if(err) return console.log(err);
     
     let jsfile = files.filter(f => f.split(".").pop() === "js");
     if(jsfile.length <= 0) {
@@ -48,7 +48,7 @@ fs.readdir("./commands/", (err, files) => {
     });
 });
 
-client.on('message', async message => {
+bot.on('message', async message => {
 
     // if(message.author == client.user) return;
     // message.channel.send(message.author.toString() + ": " + message.content);
@@ -74,6 +74,8 @@ client.on('message', async message => {
     if(commandFile) commandFile.run(bot, message, args);
     
 });
+
+bot.login(token);
 
 // client.on('guildMemberAdd', member => {
 
@@ -162,5 +164,3 @@ client.on('message', async message => {
 //     }
 
 // }
-
-client.login(token);

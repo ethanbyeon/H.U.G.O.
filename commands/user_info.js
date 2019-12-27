@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
             .addField("**Discriminator:**", `${message.author.discriminator}`, true)
             .addField("**ID:**", `${message.author.id}`, true)
             .addField("**Status:**:", `${message.author.presence.status}`, true)
-            .addField("**Creatd At:**", `${message.author.createdAt}`, ture)
+            .addField("**Creatd At:**", `${message.author.createdAt}`, true)
             .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
 
         message.channel.send({embed: uEmbed});

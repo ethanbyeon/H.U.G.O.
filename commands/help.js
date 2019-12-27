@@ -5,12 +5,12 @@ const prefix = botconfig.prefix;
 
 module.exports.run = async (bot, message, args) => {
     
-    if(args[0] == "help") return message.channel.send(`Simply request ${prefix}help instead, sir.`);
+    if(args[0] == "help") return message.channel.send(`Simply, request ${prefix}help instead, sir.`);
     
     if(args[0]) {
         let command = args[0];
         if(bot.commands.has(command)) {
-            command = bot,commands.get(command);
+            command = bot.commands.get(command);
             var SHembed = new Discord.RichEmbed()
                 .setColor(colors.green_light)
                 .setAuthor("HUGO HELP", message.guild.iconURL)
@@ -30,6 +30,7 @@ module.exports.run = async (bot, message, args) => {
 
         let Sembed = new Discord.RichEmbed()
             .setColor(colors.green_dark)
+            .setAuthor("HUGO HELP", message.guild.iconURL)
             .setThumbnail(bot.user.displayAvatarURL)
             .setTimestamp()
             .setDescription(`These are the available commands for HUGO!\nThe prefix for HUGO is: ${prefix}`)
