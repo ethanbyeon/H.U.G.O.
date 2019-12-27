@@ -2,31 +2,83 @@ const { Client, Attachment } = require('discord.js');
 const botconfig = require("./botconfig.json");
 const colors = require("./colors.json");
 
-const client = new Client({disableEveryone: true});
+const bot = new Discord.Client({disableEveryone: true});
 require('dotenv').config();
 
-var GphApiClient = require('giphy-js-sdk-core');
-const prefix = "!";
+// var GphApiClient = require('giphy-js-sdk-core');
+// const prefix = "!";
 const token = process.env.API_KEY;
-const gChannel_token = process.env.GENERAL_CHANNEL;
-const giphy = GphApiClient(process.env.GIPHY_TOKEN);
-
+// const gChannel_token = process.env.GENERAL_CHANNEL;
+// const giphy = GphApiClient(process.env.GIPHY_TOKEN);
 
 client.once('ready', async () => {
 
     console.log("Hugo is online.");
-    console.log('Ready!');
 
-    client.guilds.forEach((guild) =>  {
-        console.log(guild.name);
-        guild.channels.forEach((channel) => {
-            console.log(` - ${channel.name} ${channel.type} ${channel.id}`)
-        });
-    });
+    // client.guilds.forEach((guild) =>  {
+    //     console.log(guild.name);
+    //     guild.channels.forEach((channel) => {
+    //         console.log(` - ${channel.name} ${channel.type} ${channel.id}`)
+    //     });
+    // });
 
-    let generalChannel = client.channels.get(gChannel_token);
-    generalChannel.send("Hugo is uploaded and live! ");
+    // let generalChannel = client.channels.get(gChannel_token);
+    // generalChannel.send("Hugo has been successfully uploaded.");
 
+});
+
+client.on('message', async message => {
+
+    // if(message.author == client.user) return;
+    // message.channel.send(message.author.toString() + ": " + message.content);
+
+    // to be modified
+    // if(message.content.startsWith(`${prefix}`)) {
+    //     processCommand(message);
+    // }
+
+    // if(message.content.includes("Hugo") || message.content.includes("hugo")) {
+    //     hugoCommand(message);
+    // }
+
+    if(message.author.bot || message.channel.type === "dm") return;
+
+    let prefix = botconfig.prefix;
+    let messageArray = message.content.split(" ");
+    let cmd = messageArray[0];
+    let args = messageArray.slice(1);
+
+    if(cmd === `${prefix}serverinfo`) {
+        let sEmbed = new Discord.RichEmbed()
+            .setColor(colors.blue_light)
+            .setTitle("Server Info.")
+            .setThumbnail(message.guild.iconURL)
+            .setAuthor(`${message.guild.name} Info.`, message.guild.iconURL)
+            .addField("**Guild Name:**", `${message.guild.name}`, true)
+            .addField("**Guild Owner:**", `${message.guild.owner}`, true)
+            .addField("**Member Count:**", `${message.guild.memberCount}`, true)
+            .addField("**Role Count**:", `${message.guild.roles.size}`, true)
+            .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
+
+        message.channel.send({embed: sEmbed});
+    }
+
+    if(cmd === `${prefix}userinfo`) {
+        let uEmbed = new Discord.RichEmbed()
+            .setColor(colors.red_light)
+            .setTitle("User Info.")
+            .setThumbnail(message.guild.iconURL)
+            .setAuthor(`${message.author.name} Info.`, message.author.displayAvatarURL)
+            .addField("**Username:**", `${message.author.username}`, true)
+            .addField("**Discriminator:**", `${message.author.discriminator}`, true)
+            .addField("**ID:**", `${message.author.id}`, true)
+            .addField("**Status:**:", `${message.author.presence.status}`, true)
+            .addField("**Creatd At:**", `${message.author.createdAt}`, ture)
+            .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
+
+        message.channel.send({embed: uEmbed});
+    }
+    
 });
 
 client.on('guildMemberAdd', member => {
@@ -38,20 +90,6 @@ client.on('guildMemberAdd', member => {
 
 });
 
-client.on('message', async message => {
-
-    // if(message.author == client.user) return;
-    // message.channel.send(message.author.toString() + ": " + message.content);
-
-    if(message.content.startsWith(`${prefix}`)) {
-        processCommand(message);
-    }
-
-    if(message.content.includes("Hugo") || message.content.includes("hugo")) {
-        hugoCommand(message);
-    }
-    
-});
 
 function processCommand(message) {
 
