@@ -1,5 +1,8 @@
 const { Client, Attachment } = require('discord.js');
-const client = new Client();
+const botconfig = require("./botconfig.json");
+const botconfig = require("./colors.json");
+
+const client = new Client({disableEveryone: true});
 require('dotenv').config();
 
 var GphApiClient = require('giphy-js-sdk-core');
@@ -9,9 +12,9 @@ const gChannel_token = process.env.GENERAL_CHANNEL;
 const giphy = GphApiClient(process.env.GIPHY_TOKEN);
 
 
-client.once('ready', () => {
+client.once('ready', async () => {
 
-    console.log("Connected as " + client.user.tag);
+    console.log("Hugo is online.");
     console.log('Ready!');
 
     client.guilds.forEach((guild) =>  {
@@ -35,7 +38,7 @@ client.on('guildMemberAdd', member => {
 
 });
 
-client.on('message', message => {
+client.on('message', async message => {
 
     // if(message.author == client.user) return;
     // message.channel.send(message.author.toString() + ": " + message.content);
