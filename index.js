@@ -22,7 +22,7 @@ client.once('ready', () => {
     });
 
     let generalChannel = client.channels.get(gChannel_token);
-    generalChannel.send("Hello World!");
+    generalChannel.send("Hugo is uploaded and live! ");
 
 });
 
@@ -110,7 +110,7 @@ function councilCommand(args, message) {
                     var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
                     var responseFinal = response.data[responseIndex]
 
-                    message.channel.send(member.displayName + " has been removed. :wave: ", {
+                    message.channel.send(member.displayName + " has been removed, sir. :wave: ", {
                     files: [responseFinal.images.fixed_height.url]
                     }).catch(() => {
                         message.channel.send('Error');
@@ -126,13 +126,81 @@ function councilCommand(args, message) {
             let member = message.mentions.members.first();
             member.ban().then((member) => {
                 
-                const banMsg = member.displayName + " has been terminated.";
+                message.channel.send('Banning ${member}...');
+                const banMsg = member.displayName + " has been terminated, sir.";
                 const banGIF = new Attachment('https://media.giphy.com/media/2oVfyRHk1EuRy/giphy.gif');
                 message.channel.send(banMsg, banGIF);
 
             });
         }
         
+    }
+
+    if(!message.guild.me.hasPermissions(["MANAGE_ROLES", "ADMINISTRATOR"])) return message.channel.send("Sir, I am not authorized to manage roles.");
+
+    if(message.member.hasPermissions("MANAGE_ROLES") || message.guild.owner) {
+
+        if(args[0] === "mute") {
+
+            let mutee = message.mentions.members.first() || message.guild.members.get(args[0]);
+            if(!mutee) return message.channel.send("Please specify a member, sir.");
+
+            let muterole = message.guild.roles.find(r => r.name === "Muted");
+
+            if(!muterole) {
+
+                try {
+
+                    muterole = await message.guild.createRole({
+                       
+                        name: "Muted",
+                        color: "#514f48",
+                        permissions: []
+                    
+                    });
+
+                    message.guild.channels.forEach(async (channel, id) => {
+                        
+                        await channel.overwritePermissions(muterole, {
+
+                            SEND_MESSAGES: false,
+                            ADD_REACTIONS: false,
+                            SEND_TTS_MESSAGES: false,
+                            ATTACH_FILES: false,
+                            SPEAK: false
+
+                        })
+
+                    });
+
+                }catch(e) {
+                    console.log(e.stack);
+                }
+
+            }
+
+            mutee.addRole(muteRole.id).then(() => {
+                message.delete();
+                mutee.send(`Hello, you have been placed in ${messsage.guild.name} for being naughty.`);
+                message.channel.send(`${mutee.user.username} was successfully muted, sir.`)
+            });
+
+
+            // let embed = new Discord.RichEmbed()
+            // .setColor(colours.reddark)
+            // .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
+            // .addField("Moderation: ", "mute")
+            // .addField("Mutee: ", mutee.user.username)
+            // .addField("Moderator: ", message.author.username)
+            // .addField("Date: ", message.createdAt)
+
+            // let sChannel = message.guild.channels.find(c => c.name === "tut-modlogs")
+            // sChannel.send(embed);
+
+        }
+        
+    }else {
+        return message.channel.send("I'm afraid you are not authorized to use this command.");
     }
 
 }
