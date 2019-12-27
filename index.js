@@ -5,6 +5,7 @@ require('dotenv').config();
 var GphApiClient = require('giphy-js-sdk-core');
 const prefix = "!";
 const token = process.env.API_KEY;
+const gChannel_token = process.env.GENERAL_CHANNEL;
 const giphy = GphApiClient(process.env.GIPHY_TOKEN);
 
 
@@ -20,8 +21,17 @@ client.once('ready', () => {
         });
     });
 
-    let generalChannel = client.channels.get("658868395986649122");
+    let generalChannel = client.channels.get(gChannel_token);
     generalChannel.send("Hello World!");
+
+});
+
+client.on('guildMemberAdd', member => {
+
+    const channel = member.guild.channels.find(channel => channel.name == "general");
+    if(!channel) return;
+
+    channel.send(`Welcome, ${member}.`);
 
 });
 
