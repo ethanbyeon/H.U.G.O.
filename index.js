@@ -27,6 +27,27 @@ client.once('ready', async () => {
 
 });
 
+const fs = require("fs");
+bot.commands = new Discord.Collection();
+bot.aliases = new Discord.Collection();
+
+fs.readdir("./commands/", (err, files) => {
+    if(err) console.log(err);
+    
+    let jsfile = files.filter(f => f.split(".").pop() === "js");
+    if(jsfile.length <= 0) {
+        return console.log("[LOGS] Couldn't Find Commands!");
+    }
+
+    jsfile.forEach((f, i) => {
+        let pull = require(`./commands/${f}`);
+        bot.commands.set(pull.config.name, pull);
+        pull.config.aliases.forEach(alias => {
+            bot.aliases.set(alias, pull.config.name);
+        });
+    });
+});
+
 client.on('message', async message => {
 
     // if(message.author == client.user) return;
@@ -48,36 +69,9 @@ client.on('message', async message => {
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
 
-    if(cmd === `${prefix}serverinfo`) {
-        let sEmbed = new Discord.RichEmbed()
-            .setColor(colors.blue_light)
-            .setTitle("Server Info.")
-            .setThumbnail(message.guild.iconURL)
-            .setAuthor(`${message.guild.name} Info.`, message.guild.iconURL)
-            .addField("**Guild Name:**", `${message.guild.name}`, true)
-            .addField("**Guild Owner:**", `${message.guild.owner}`, true)
-            .addField("**Member Count:**", `${message.guild.memberCount}`, true)
-            .addField("**Role Count**:", `${message.guild.roles.size}`, true)
-            .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
-
-        message.channel.send({embed: sEmbed});
-    }
-
-    if(cmd === `${prefix}userinfo`) {
-        let uEmbed = new Discord.RichEmbed()
-            .setColor(colors.red_light)
-            .setTitle("User Info.")
-            .setThumbnail(message.guild.iconURL)
-            .setAuthor(`${message.author.name} Info.`, message.author.displayAvatarURL)
-            .addField("**Username:**", `${message.author.username}`, true)
-            .addField("**Discriminator:**", `${message.author.discriminator}`, true)
-            .addField("**ID:**", `${message.author.id}`, true)
-            .addField("**Status:**:", `${message.author.presence.status}`, true)
-            .addField("**Creatd At:**", `${message.author.createdAt}`, ture)
-            .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
-
-        message.channel.send({embed: uEmbed});
-    }
+    if(!message.content.startsWith(prefix)) return;
+    let commandFile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice((prefix.length))));
+    if(commandFile) commandFile.run(bot, message, args);
     
 });
 
