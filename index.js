@@ -1,6 +1,6 @@
 const { Client, Attachment } = require('discord.js');
 const botconfig = require("./botconfig.json");
-const botconfig = require("./colors.json");
+const colors = require("./colors.json");
 
 const client = new Client({disableEveryone: true});
 require('dotenv').config();
