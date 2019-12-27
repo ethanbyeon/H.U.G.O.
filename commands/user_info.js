@@ -20,6 +20,9 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.config = {
-    name: "serverinfo",
-    aliases: ["ui", "userdesc"]
+    name: "userinfo",
+    description: "Provides your user information or the information of a specified user.",
+    usage: "!userinfo (@mention)",
+    accessableby: "Members",
+    aliases: ["ui"]
 }
