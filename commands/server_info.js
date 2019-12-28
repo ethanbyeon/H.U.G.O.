@@ -19,9 +19,11 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.config = {
+
     name: "serverinfo",
     description: "Provides information about the server.",
     usage: "!serverinfo",
     accessableby: "Members",
-    aliases: ["si"]
+    aliases: ["si","sinfo", "serveri"]
+    
 }
