@@ -24,7 +24,7 @@ module.exports = {
             .addField("**Role Count**:", `${message.guild.roles.size}`, true)
             .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
 
-        message.channel.send(sEmbed);
+    message.channel.send(sEmbed);
     }
     
 }

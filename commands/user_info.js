@@ -25,7 +25,7 @@ module.exports = {
             .addField("**Creatd At:**", `${message.author.createdAt}`, true)
             .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
 
-        message.channel.send(uEmbed);
+    message.channel.send(uEmbed);
     }
 
 }
