@@ -1,8 +1,17 @@
-const Discord = require("discord.js");
-const botconfig = require("../botconfig.json");
-const colors = require("../colors.json");
+const { RichEmbed } = require("discord.js");
+const { red_dark } = require("../colors.json");
 
-module.exports.run = async (bot, message, args) => {
+module.exports = {
+    
+    config: {
+        name: "serverinfo",
+        description: "Provides information about the server.",
+        usage: "!serverinfo",
+        accessableby: "Members",
+        aliases: ["si","sinfo", "serveri"]    
+    },
+
+    run: async (bot, message, args) => {
     
     let sEmbed = new Discord.RichEmbed()
             .setColor(colors.blue_light)
@@ -15,15 +24,7 @@ module.exports.run = async (bot, message, args) => {
             .addField("**Role Count**:", `${message.guild.roles.size}`, true)
             .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
 
-        message.channel.send({embed: sEmbed});
-}
-
-module.exports.config = {
-
-    name: "serverinfo",
-    description: "Provides information about the server.",
-    usage: "!serverinfo",
-    accessableby: "Members",
-    aliases: ["si","sinfo", "serveri"]
+        message.channel.send(sEmbed);
+    }
     
 }

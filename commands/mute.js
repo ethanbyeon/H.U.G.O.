@@ -1,8 +1,17 @@
-const Discord = require("discord.js");
-const botconfig = require("../botconfig.json");
-const colors = require("../colors.json");
+const { RichEmbed } = require("discord.js");
+const { red_light } = require("../colors.json");
 
-module.exports.run = async (bots, message, args) => {
+module.exports = {
+    
+    config: {
+        name: "mute",
+        description: "Mutes a member.",
+        usage: "!mute <@user> <reason>",
+        accessableby: "Members",
+        aliases: ["m", "nospeak"]
+    },
+
+    run: async (bots, message, args) => {
 
     if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return message.channel.send("You are not authorized to use this command.");
     if(!message.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return message.channel.send("Sir, I am not authorized to manage roles.");
@@ -42,8 +51,8 @@ module.exports.run = async (bots, message, args) => {
         message.channel.send(`${mutee.user.username} was succesfully muted, sir.`);
     });
 
-    let embed = new Discord.RichEmbed()
-        .setColor(colors.red_dark)
+    let embed = new RichEmbed()
+        .setColor(colors.red_light)
         .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
         .addField("Moderation:", "mute")
         .addField("Mutee:", mutee.user.username)
@@ -51,17 +60,8 @@ module.exports.run = async (bots, message, args) => {
         .addField("Reason:", reason)
         .addField("Date:", message.createdAt.toLocaleString())
     
-    let sChannel = message.guild.channels.find(c => c.name === "general")
-    sChannel.send(embed);
-
-}
-
-module.exports.config = {
-    
-    name: "mute",
-    description: "Mutes a member.",
-    usage: "!mute <@user> <reason>",
-    accessableby: "Members",
-    aliases: ["m", "nospeak"]
+            let sChannel = message.guild.channels.find(c => c.name === "general")
+            sChannel.send(embed);
+    }
 
 }

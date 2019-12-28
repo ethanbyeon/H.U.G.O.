@@ -1,5 +1,5 @@
 const { RichEmbed } = require("discord.js")
-const { redlight } = require("../colors.json");
+const { red_light } = require("../colors.json");
 
 module.exports = {
     
@@ -13,7 +13,7 @@ module.exports = {
     
     run: async (bot, message, args) => {
 
-    if(!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("You are not authorized to perform this command.")
+    if(!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("You are not authorized to perform this command.");
 
 	if(isNaN(args[0])) return message.channel.send("You need to provide an ID, sir.");
     let bannedMember = await bot.fetchUser(args[0])
@@ -44,6 +44,6 @@ module.exports = {
     
             let sChannel = message.guild.channels.find(c => c.name === "general");
             sChannel.send(embed);
-
     }
+
 }

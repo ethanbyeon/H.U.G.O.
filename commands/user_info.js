@@ -1,8 +1,17 @@
-const Discord = require("discord.js");
-const botconfig = require("../botconfig.json");
-const colors = require("../colors.json");
+const { RichEmbed } = require("discord.js");
+const { red_dark } = require("../colors.json");
 
-module.exports.run = async (bot, message, args) => {
+module.exports = {
+    
+    config: {
+        name: "userinfo",
+        description: "Provides your user information or the information of a specified user.",
+        usage: "!userinfo (@mention)",
+        accessableby: "Members",
+        aliases: ["ui", "uinfo", "useri"]
+    },
+
+    run: async (bot, message, args) => {
     
     let uEmbed = new Discord.RichEmbed()
             .setColor(colors.red_light)
@@ -16,15 +25,7 @@ module.exports.run = async (bot, message, args) => {
             .addField("**Creatd At:**", `${message.author.createdAt}`, true)
             .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
 
-        message.channel.send({embed: uEmbed});
-}
+        message.channel.send(uEmbed);
+    }
 
-module.exports.config = {
-
-    name: "userinfo",
-    description: "Provides your user information or the information of a specified user.",
-    usage: "!userinfo (@mention)",
-    accessableby: "Members",
-    aliases: ["ui", "uinfo", "useri"]
-    
 }
