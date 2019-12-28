@@ -1,2 +1,2 @@
-# Discord
-Bots, bots, and bots
+# HUGO
+The Helpful Discord Bot

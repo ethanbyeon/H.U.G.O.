@@ -1,4 +1,4 @@
-const { prefix } = require("../../botconfig.json");
+const prefix = process.env.PREFIX;
 
 module.exports = async (bot, message) => { 
     

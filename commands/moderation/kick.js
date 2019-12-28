@@ -1,6 +1,9 @@
 const { RichEmbed } = require("discord.js");
 const { red_dark } = require("../../colors.json");
 
+var GphApiClient = require('giphy-js-sdk-core');
+const giphy = GphApiClient(process.env.GIPHY_TOKEN);
+
 module.exports = {
     
     config: {
@@ -22,13 +25,24 @@ module.exports = {
 
         let reason = args.slice(1).join(" ");
             if(!reason) reason = "No reason given.";
+        
+        kickMember.kick().then((member) => {
+            
+            giphy.search('gifs', {"q":" family guy"})
+                .then((response) => {
+                    var totalResponses = response.data.length;
+                    var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
+                    var responseFinal = response.data[responseIndex];
 
-        kickMember.send(`Hello, you have been kicked from ${message.guild.name} for: ${reason}`).then(() =>
-        kickMember.kick()).catch(err => console.log(err));
+                    message.channel.send(`**${kickMember.user.tag}** has been kicked, sir. :wave:`, {
+                        files: [responseFinal.images.fixed_height.url]
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
+        });
         
         message.delete();
-        
-        message.channel.send(`**${kickMember.user.tag}** has been kicked, sir.`);
 
         let embed = new RichEmbed()
             .setColor(red_dark)

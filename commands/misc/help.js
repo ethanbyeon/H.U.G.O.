@@ -1,8 +1,9 @@
 const { RichEmbed } = require("discord.js");
-const { prefix } = require("../../botconfig.json");
 const { readdirSync } = require("fs");
 const { stripIndents } = require("common-tags");
 const { cyan } = require("../../colors.json");
+
+const prefix = process.env.PREFIX;
 
 module.exports = {
 

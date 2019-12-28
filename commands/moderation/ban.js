@@ -1,5 +1,8 @@
-const { RichEmbed } = require("discord.js");
+const { RichEmbed, Attachment } = require("discord.js");
 const { red_dark } = require("../../colors.json");
+
+var GphApiClient = require('giphy-js-sdk-core');
+const giphy = GphApiClient(process.env.GIPHY_TOKEN);
 
 module.exports = {
 
@@ -28,7 +31,9 @@ module.exports = {
         
         message.delete();
 
-        message.channel.send(`**${banMember.user.tag}** has been terminated.`);
+        const banMsg = `**${banMember.user.tag}** has been terminated.`;
+        const banGIF = new Attachment('https://media.giphy.com/media/2oVfyRHk1EuRy/giphy.gif');
+        message.channel.send(banMsg, banGIF);
 
         let embed = new RichEmbed()
             .setColor(red_dark)

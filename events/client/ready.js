@@ -1,4 +1,3 @@
-const { nodes } = require("../../botconfig.json");
 
 module.exports = bot => {
 
