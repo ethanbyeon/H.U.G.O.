@@ -8,13 +8,13 @@ module.exports.run = async (bot, message, args) => {
     if(!message.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return message.channel.send("Sir, I am not authorized to manage roles.");
 
     let mutee = message.mentions.members.first() || message.guilds.members.get(args[0]);
-    if(!mutee) return message.channel.send("Please specify a user, sir.");
+        if(!mutee) return message.channel.send("Please specify a user, sir.");
 
     let reason = args.slice(1).join(" ");
-    if(!reason) reason = "No reason give.";
+        if(!reason) reason = "No reason give.";
 
     let muterole = message.guild.roles.find(r => r.name === "TIMEOUT CORNER");
-    if(!muterole) return message.channel.send("Sir, there is no mute role to remove.")
+        if(!muterole) return message.channel.send("Sir, there is no mute role to remove.")
 
     mutee.removeRole(muterole.id).then(() => {
         message.delete();

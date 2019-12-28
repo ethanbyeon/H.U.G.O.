@@ -6,14 +6,13 @@ const colors = require("../colors.json");
 module.exports.run = async (bot, message, args) => {
 
     if(!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("You are not authorized to perform this command.");
+    if(!message.guild.me.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("Sir, I am not authorized to perform this command.");
 
     let banMember = message.mentions.members.first() || message.guilds.members.get(args[0]);
-    if(!banMember) return message.channel.send("Please specify a user, sir.");
+        if(!banMember) return message.channel.send("Please specify a user, sir.");
 
     let reason = args.slice(1).join(" ");
-    if(!reason) reason = "No reason given.";
-
-    if(!message.guild.me.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("Sir, I am not authorized to perform this command.");
+        if(!reason) reason = "No reason given.";
 
     message.delete();
 
