@@ -47,5 +47,5 @@ module.exports.config = {
     description: "Provides a list of available commands for HUGO.",
     usage: "!help",
     accessableby: "Members",
-    aliases: ["h", "help"]
+    aliases: ["h"]
 }

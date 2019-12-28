@@ -62,6 +62,6 @@ module.exports.config = {
     description: "Mutes a member.",
     usage: "!mute <@user> <reason>",
     accessableby: "Members",
-    aliases: ["m", "nospeak", "mute"]
+    aliases: ["m", "nospeak"]
 
 }
