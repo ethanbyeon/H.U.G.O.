@@ -1,5 +1,5 @@
 const { RichEmbed } = require("discord.js")
-const { red_light } = require("../colors.json");
+const { red_light } = require("../../colors.json");
 
 module.exports = {
     

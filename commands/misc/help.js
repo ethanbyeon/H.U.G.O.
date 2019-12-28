@@ -1,15 +1,15 @@
 const { RichEmbed } = require("discord.js");
-const { prefix } = require("../botconfig.json");
+const { prefix } = require("../../botconfig.json");
 const { readdirSync } = require("fs");
 const { stripIndents } = require("common-tags");
-const { blue_light } = require("../colors.json");
+const { blue_light } = require("../../colors.json");
 
 module.exports = {
 
     config: {
         name: "help",
         description: "Displays all HUGO commands.",
-        usage: "(command)",
+        usage: "!help",
         category: "misc",
         accessableby: "Members",
         aliases: ["h", "help", "commands"]

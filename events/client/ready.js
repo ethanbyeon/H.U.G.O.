@@ -3,7 +3,6 @@ const Discord = require("discord.js");
 module.exports = bot => {
 
     console.log(`${bot.user.username} is online`);
-    //bot.user.setActivity("Hello", {type: "SAILING THE PEQUOD"});
 
     let statuses = [
         `Scanning through ${bot.guilds.size} papers`,
