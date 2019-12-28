@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) => {
     banMember.send(`Hello, you have been banned from ${message.guild.name} for: ${reason}`).then(() => 
     message.guild.ban(banMember, {days: 1, reason: reason})).then(() => message.guild.unban(banMember.id, { reason: "Softban"})).catch(err => console.log(err));
 
-    message.channel.send(`**${banMember.user.username}** has been kicked, sir.`);
+    message.channel.send(`**${banMember.user.username}** has been softbanned, sir.`);
 
     let embed = new Discord.RichEmbed()
         .setColor(colors.red_dark)
