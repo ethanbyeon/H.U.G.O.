@@ -1,2 +1,2 @@
-# H.U.G.O
+# H.U.G.O.
 The Helpful Discord Bot
