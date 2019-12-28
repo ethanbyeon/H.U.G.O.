@@ -7,6 +7,7 @@ module.exports = {
         name: "ban",
         description: "Bans a user from the guild!",
         usage: "!ban",
+        category: "moderation",
         accessableby: "Administrators",
         aliases: ["b", "banish", "poof", "skidoosh", "adios", "remove"]
     },

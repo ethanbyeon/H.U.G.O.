@@ -7,6 +7,7 @@ module.exports = {
         name: "unmute",
         description: "Unmutes a member from the guild.",
         usage: "!unmute <@user> <reason>",
+        category: "moderation",
         accessableby: "Members",
         aliases: ["unm", "speak"]
     },

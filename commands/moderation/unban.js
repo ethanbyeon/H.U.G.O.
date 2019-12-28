@@ -7,6 +7,7 @@ module.exports = {
         name: "unban",
         description: "Unbans a user from the guild.",
         usage: "!unban",
+        category: "moderation",
         accessableby: "Administrators",
         aliases: ["ub", "unbanish"]
     },

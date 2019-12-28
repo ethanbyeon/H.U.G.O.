@@ -7,6 +7,7 @@ module.exports = {
         name: "mute",
         description: "Mutes a member.",
         usage: "!mute <@user> <reason>",
+        category: "moderation",
         accessableby: "Members",
         aliases: ["m", "nospeak"]
     },

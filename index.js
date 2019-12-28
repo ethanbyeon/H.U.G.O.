@@ -1,19 +1,30 @@
-const Discord = require('discord.js');
-const botconfig = require("./botconfig.json");
-const colors = require("./colors.json");
+const { Client, Collection } = require("discord.js");
+const { token } = require("./botconfig.json");
+const bot = new Client();
 
-const bot = new Discord.Client({disableEveryone: true});
-require('dotenv').config();
+const toke = process.env.API_KEY;
+
+["aliases", "commands"].forEach(x => bot[x] = new Collection());
+["command", "event"].forEach(x => require(`./handlers/${x}`)(bot));
+
+bot.login(token);
+
+// const Discord = require('discord.js');
+// const botconfig = require("./botconfig.json");
+// const colors = require("./colors.json");
+
+// const bot = new Discord.Client({disableEveryone: true});
+// require('dotenv').config();
 
 // var GphApiClient = require('giphy-js-sdk-core');
 // const prefix = "!";
-const token = process.env.API_KEY;
+// const token = process.env.API_KEY;
 // const gChannel_token = process.env.GENERAL_CHANNEL;
 // const giphy = GphApiClient(process.env.GIPHY_TOKEN);
 
-bot.once('ready', async () => {
+// bot.once('ready', async () => {
 
-    console.log("Hugo is online.");
+//     console.log("Hugo is online.");
 
     // client.guilds.forEach((guild) =>  {
     //     console.log(guild.name);
@@ -25,30 +36,30 @@ bot.once('ready', async () => {
     // let generalChannel = client.channels.get(gChannel_token);
     // generalChannel.send("Hugo has been successfully uploaded.");
 
-});
+// });
 
-const fs = require("fs");
-bot.commands = new Discord.Collection();
-bot.aliases = new Discord.Collection();
+// const fs = require("fs");
+// bot.commands = new Discord.Collection();
+// bot.aliases = new Discord.Collection();
 
-fs.readdir("./commands/", (err, files) => {
-    if(err) return console.log(err);
+// fs.readdir("./commands/", (err, files) => {
+//     if(err) return console.log(err);
     
-    let jsfile = files.filter(f => f.split(".").pop() === "js");
-    if(jsfile.length <= 0) {
-        return console.log("[LOGS] Couldn't Find Commands!");
-    }
+//     let jsfile = files.filter(f => f.split(".").pop() === "js");
+//     if(jsfile.length <= 0) {
+//         return console.log("[LOGS] Couldn't Find Commands!");
+//     }
 
-    jsfile.forEach((f, i) => {
-        let pull = require(`./commands/${f}`);
-        bot.commands.set(pull.config.name, pull);
-        pull.config.aliases.forEach(alias => {
-            bot.aliases.set(alias, pull.config.name);
-        });
-    });
-});
+//     jsfile.forEach((f, i) => {
+//         let pull = require(`./commands/${f}`);
+//         bot.commands.set(pull.config.name, pull);
+//         pull.config.aliases.forEach(alias => {
+//             bot.aliases.set(alias, pull.config.name);
+//         });
+//     });
+// });
 
-bot.on('message', async message => {
+// bot.on('message', async message => {
 
     // if(message.author == client.user) return;
     // message.channel.send(message.author.toString() + ": " + message.content);
@@ -62,20 +73,20 @@ bot.on('message', async message => {
     //     hugoCommand(message);
     // }
 
-    if(message.author.bot || message.channel.type === "dm") return;
+//     if(message.author.bot || message.channel.type === "dm") return;
 
-    let prefix = botconfig.prefix;
-    let messageArray = message.content.split(" ");
-    let cmd = messageArray[0];
-    let args = messageArray.slice(1);
+//     let prefix = botconfig.prefix;
+//     let messageArray = message.content.split(" ");
+//     let cmd = messageArray[0];
+//     let args = messageArray.slice(1);
 
-    if(!message.content.startsWith(prefix)) return;
-    let commandFile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice((prefix.length))));
-    if(commandFile) commandFile.run(bot, message, args);
+//     if(!message.content.startsWith(prefix)) return;
+//     let commandFile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice((prefix.length))));
+//     if(commandFile) commandFile.run(bot, message, args);
     
-});
+// });
 
-bot.login(token);
+// bot.login(token);
 
 // client.on('guildMemberAdd', member => {
 

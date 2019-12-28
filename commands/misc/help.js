@@ -10,6 +10,7 @@ module.exports = {
         name: "help",
         description: "Displays all HUGO commands.",
         usage: "(command)",
+        category: "misc",
         accessableby: "Members",
         aliases: ["h", "help", "commands"]
     },

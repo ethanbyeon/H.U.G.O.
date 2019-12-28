@@ -7,6 +7,7 @@ module.exports = {
         name: "serverinfo",
         description: "Provides information about the server.",
         usage: "!serverinfo",
+        category: "misc",
         accessableby: "Members",
         aliases: ["si","sinfo", "serveri"]    
     },

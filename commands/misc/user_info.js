@@ -7,6 +7,7 @@ module.exports = {
         name: "userinfo",
         description: "Provides your user information or the information of a specified user.",
         usage: "!userinfo (@mention)",
+        category: "misc",
         accessableby: "Members",
         aliases: ["ui", "uinfo", "useri"]
     },

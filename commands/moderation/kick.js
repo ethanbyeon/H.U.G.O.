@@ -7,6 +7,7 @@ module.exports = {
         name: "kick",
         description: "Kicks a user from the guild.",
         usage: "!kick",
+        category: "moderation",
         accessableby: "Moderator",
         aliases: ["k"]
     },
