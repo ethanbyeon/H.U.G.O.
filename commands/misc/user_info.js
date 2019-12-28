@@ -14,19 +14,19 @@ module.exports = {
 
     run: async (bot, message, args) => {
     
-    let uEmbed = new RichEmbed()
-            .setColor(blue_light)
-            .setTitle("User Info:")
-            .setThumbnail(message.guild.iconURL)
-            .setAuthor(`${message.author.username}`, message.author.displayAvatarURL)
-            .addField("**Username:**", `${message.author.username}`, true)
-            .addField("**Discriminator:**", `${message.author.discriminator}`, true)
-            .addField("**ID:**", `${message.author.id}`, true)
-            .addField("**Status:**:", `${message.author.presence.status}`, true)
-            .addField("**Creatd At:**", `${message.author.createdAt}`, true)
-            .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
+        let uEmbed = new RichEmbed()
+                .setColor(blue_light)
+                .setTitle("User Info:")
+                .setThumbnail(message.guild.iconURL)
+                .setAuthor(`${message.author.username}`, message.author.displayAvatarURL)
+                .addField("**Username:**", `${message.author.username}`, true)
+                .addField("**Discriminator:**", `${message.author.discriminator}`, true)
+                .addField("**ID:**", `${message.author.id}`, true)
+                .addField("**Status:**:", `${message.author.presence.status}`, true)
+                .addField("**Creatd At:**", `${message.author.createdAt}`, true)
+                .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
 
-    message.channel.send(uEmbed);
+        message.channel.send(uEmbed);
     }
 
 }

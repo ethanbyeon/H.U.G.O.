@@ -14,18 +14,18 @@ module.exports = {
 
     run: async (bot, message, args) => {
     
-    let sEmbed = new RichEmbed()
-            .setColor(blue_light)
-            .setTitle(`${message.guild.name} Info:`)
-            .setThumbnail(message.guild.iconURL)
-            .setAuthor(`${message.guild.name}`, message.guild.iconURL)
-            .addField("**Guild Name:**", `${message.guild.name}`, true)
-            .addField("**Guild Owner:**", `${message.guild.owner}`, true)
-            .addField("**Member Count:**", `${message.guild.memberCount}`, true)
-            .addField("**Role Count**:", `${message.guild.roles.size}`, true)
-            .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
+        let sEmbed = new RichEmbed()
+                .setColor(blue_light)
+                .setTitle(`${message.guild.name} Info:`)
+                .setThumbnail(message.guild.iconURL)
+                .setAuthor(`${message.guild.name}`, message.guild.iconURL)
+                .addField("**Guild Name:**", `${message.guild.name}`, true)
+                .addField("**Guild Owner:**", `${message.guild.owner}`, true)
+                .addField("**Member Count:**", `${message.guild.memberCount}`, true)
+                .addField("**Role Count**:", `${message.guild.roles.size}`, true)
+                .setFooter(`HUGO | Footer`, bot.user.displayAvatarURL);
 
-    message.channel.send(sEmbed);
+        message.channel.send(sEmbed);
     }
     
 }
