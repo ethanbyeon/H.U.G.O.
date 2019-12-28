@@ -18,9 +18,9 @@ module.exports.run = async (bot, message, args) => {
     message.delete();
 
     banMember.send(`Hello, you have been banned from ${message.guild.name} for: ${reason}`).then(() => 
-    message.guild.ban(banMember, {days: 1, reason: reason})).catch(err => console.log(err));
+    message.guild.ban(banMember, {days: 1, reason: reason})).then(() => message.guild.unban(banMember.id, { reason: "Softban"})).catch(err => console.log(err));
 
-    message.channel.send(`**${banMember.user.username}** has been terminated, sir.`);
+    message.channel.send(`**${banMember.user.username}** has been kicked, sir.`);
 
     let embed = new Discord.RichEmbed()
         .setColor(colors.red_dark)
@@ -38,10 +38,10 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.config = {
     
-    name: "ban",
-    description: "Bans a user from the guild.",
-    usage: "!ban <@user> <reason>",
+    name: "softban",
+    description: "Softbans a user from the guild.",
+    usage: "!softban <@user> <reason>",
     accessableby: "Administrator",
-    aliases: ["b", "banish", "poof", "skidoosh", "adios", "remove"]
+    aliases: ["sb", "sbanish", "sremove"]
 
 }
