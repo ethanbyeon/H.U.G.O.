@@ -1,5 +1,5 @@
 const { RichEmbed } = require("discord.js");
-const { red_dark } = require("../../colors.json");
+const { blue_light } = require("../../colors.json");
 
 module.exports = {
     
@@ -14,11 +14,11 @@ module.exports = {
 
     run: async (bot, message, args) => {
     
-    let uEmbed = new Discord.RichEmbed()
-            .setColor(colors.red_light)
-            .setTitle("User Info.")
+    let uEmbed = new RichEmbed()
+            .setColor(blue_light)
+            .setTitle("User Info:")
             .setThumbnail(message.guild.iconURL)
-            .setAuthor(`${message.author.name} Info.`, message.author.displayAvatarURL)
+            .setAuthor(`${message.author.username}`, message.author.displayAvatarURL)
             .addField("**Username:**", `${message.author.username}`, true)
             .addField("**Discriminator:**", `${message.author.discriminator}`, true)
             .addField("**ID:**", `${message.author.id}`, true)
