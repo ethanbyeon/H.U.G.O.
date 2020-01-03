@@ -2,7 +2,7 @@ const { RichEmbed, Attachment } = require("discord.js");
 const { red_dark } = require("../../colors.json");
 
 var GphApiClient = require('giphy-js-sdk-core');
-const giphy = GphApiClient(process.env.GIPHY_TOKEN);
+const giphy_token = GphApiClient(process.env.GIPHY_KEY);
 
 module.exports = {
 
