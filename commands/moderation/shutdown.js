@@ -13,7 +13,7 @@ module.exports = {
     
     run: async (bot, message, args) => {
 
-        if(message.author.id != owner_token) return message.channel.send("I'm afraid that you are not authorized to use this command.");
+        if(message.author.id != owner_id) return message.channel.send("I'm afraid that you are not authorized to use this command.");
 
         try {
             await message.channel.send("Bot is shutting down...");
