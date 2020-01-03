@@ -28,7 +28,7 @@ module.exports = {
         
         kickMember.kick().then((member) => {
             
-            giphy.search('gifs', {"q":" family guy"})
+            giphy_token.search('gifs', {"q":" family guy"})
                 .then((response) => {
                     var totalResponses = response.data.length;
                     var responseIndex = Math.floor((Math.random() * 10) + 1) % totalResponses;
